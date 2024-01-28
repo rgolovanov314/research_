@@ -1,0 +1,67 @@
+progress: 
+two files, testing and Algebra1. Algebra1 is the beginning of my endeavor to clean up
+my code. testing can basically be ignored; it just shows all the different type
+definitions i tried before settling on the current model.
+
+currently i have rough definitions of the group/ring/field types, i need to 
+flesh out the identity/generator components i put in each class. right now that 
+information is manually passed into each element which isn't ideal, id rather have
+it be a component of a more general data structure.
+
+im a little bit inconsistently switching between integrating with vs. ignoring 
+the pre-existing Num class, so I need to sort that out as well. i'm also 
+abusing my Vectors type to serve as a polynomial struct as well, so i would also
+clean that up/separate the two concepts. i'm contemplating removing Vectors entirely
+since I'm really just using the polynomial aspect. but having some base code to
+do a little linear algebra with could be useful for further developments. 
+
+i might have to abandon the mobius function component, just formalizing finite 
+fields is a weighty task already. the method i'm toying with right now is the
+definition of finite fields as the splitting fields of some monic polynomial, 
+and writing the field elements as cosets of that ideal. my polynomial multiplication
+and division system isn't ideal yet so i'm definitely still tinkering there.
+
+it would be nice if i could figure out some way to generalize the irreducible 
+polynomials which generate the higher order finite fields, but i think that
+might be its own like deep mathematical question. either way right now i have 
+like a polynomial set up for the higher order fields and then i can verify that
+that is in fact the splitting field, but i want to go the other way, where given
+a finite field, i can make up the polynomial list just given the splitting
+polynomial. thats where my current polynomial division is causing issues.
+
+there is a Lot of cleaning to be done for sure. i had to mostly abandon my dream of 
+using Functor/Applicative and make up my own functor/applicative style definitions
+that obeyed my type specific needs (ex. my $+, $* are basically just the functor
+/applicative instances of ziplist but the functor definition was too general for my needs)
+and maybe i was a little too lazy to work ziplist into my preexisting code.
+
+there is definitely potential to implement some stateful code, like right now 
+my vectors all carry their base field in their data struct (like how my group elements
+all carry their identity/generator with them) when that could definitely be generalized
+to an environment situation. i fear that given my previous difficulties with
+the preexisting monadic structures that this will not be trivial and i'll either have
+to make my own bastardized monad or ignore that avenue entirely.
+
+answers to TA questions:
+why do this when so many libraries for this already exist? how is it different?
+
+plainly, i just don't really like the way that libraries like Numeric Prelude or Galois
+are implemented. Numeric Prelude doesn't have infrastructure for finite fields 
+(that i could tell, at least). the Galois field libraries i looked at were built
+with cryptography application in mind, which although probably more practical,
+are not what i want to do here. basically, it seems to me like my goals are either too 
+specific for the more expansive libraries or too abstract for the more "relevant" ones.
+i haven't used any code from the mentioned libraries or any libraries that aren't in base
+haskell in general (going at it from scratch), so i don't think i run the risk of 
+rewriting someone else's code. i might be reinventing the wheel for some finite field
+library i haven't looked at yet, or looked at and ignored, but what can i say im 
+pretty picky about my wheels.
+
+as for curry howard isomorphism stuff, i just learned what that was after googling
+it this week. i did not realize that my plan for this project is just. the field
+of type theory. so that was an accident. but yes i guess basically im verifying 
+existing propositions with my own type system? not sure if its general enough for 
+that though
+
+
+
